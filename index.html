@@ -245,5 +245,33 @@
     </footer>
 
   </div>
+  
+<script>
+  const button = document.querySelector("button");
+  const grid = document.querySelector(".grid");
+
+  button.addEventListener("click", function() {
+    const exercise = prompt("Назва вправи:");
+
+    if (!exercise || !exercise.trim()) return;
+
+    const result = prompt("Введи свій результат:");
+
+    if (!result || !result.trim()) return;
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const title = document.createElement("h3");
+    title.textContent = exercise;
+
+    const info = document.createElement("p");
+    info.textContent = "Результат: " + result;
+
+    card.append(title, info);
+    grid.append(card);
+  });
+</script>
+
 </body>
 </html>
