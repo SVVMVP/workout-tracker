@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Tracker</title>
+
+  <!-- Сучасний шрифт -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #101418;
+      color: #f3f5f4;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 32px 24px 80px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid #293139;
+    }
+
+    .logo {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .logo span {
+      color: #a6d7b3;
+    }
+
+    .label {
+      font-size: 11px;
+      color: #a6d7b3;
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      padding: 60px 0 38px;
+    }
+
+    h1 {
+      margin: 12px 0 16px;
+      font-size: clamp(34px, 6vw, 54px);
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .hero p {
+      color: #9da8b0;
+      font-size: 16px;
+      max-width: 520px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: #1b2228;
+      border: 1px solid #2a343c;
+      border-radius: 16px;
+      padding: 26px;
+    }
+
+    .card h3 {
+      margin: 0 0 20px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .card p {
+      margin: 8px 0;
+      color: #aab4bc;
+      font-size: 14px;
+    }
+
+    .number {
+      color: #ffffff;
+      font-size: 35px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+    }
+
+    .number span {
+      font-size: 15px;
+      color: #9da8b0;
+      font-weight: 400;
+    }
+
+    .section-title {
+      margin: 48px 0 20px;
+      font-size: 23px;
+      letter-spacing: -0.6px;
+    }
+
+    .progress {
+      margin-top: 24px;
+      height: 7px;
+      background: #354047;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 85%;
+      height: 100%;
+      background: #a6d7b3;
+      border-radius: 20px;
+    }
+
+    .goal {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #aab4bc;
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 28px;
+      background: #a6d7b3;
+      color: #101418;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 24px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #c3e8cc;
+    }
+
+    footer {
+      margin-top: 70px;
+      padding-top: 24px;
+      border-top: 1px solid #293139;
+      color: #78858e;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <div class="logo">WORKOUT<span>TRACKER.</span></div>
+      <div class="label">Personal Fitness</div>
+    </header>
+
+    <section class="hero">
+      <div class="label">Твій особистий прогрес</div>
+
+      <h1>
+        Ставай сильнішим.<br>
+        Кожного дня.
+      </h1>
+
+      <p>
+        Записуй тренування, відстежуй результати
+        та поступово досягай своїх цілей.
+      </p>
+    </section>
+
+    <h2 class="section-title">Мої тренування</h2>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="label">Силове тренування</div>
+        <h3>Жим лежачи</h3>
+
+        <div class="number">85 <span>кг</span></div>
+        <p>3 підходи × 5 повторень</p>
+
+        <div class="progress">
+          <div class="progress-fill"></div>
+        </div>
+
+        <div class="goal">
+          <span>Робоча вага: 85 кг</span>
+          <span>Ціль: 100 кг</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="label">Власна вага</div>
+        <h3>Підтягування</h3>
+
+        <div class="number">10 <span>повторень</span></div>
+        <p>3 підходи</p>
+        <p>Тип: тренування спини</p>
+      </div>
+
+    </div>
+
+    <button type="button">+ Додати тренування</button>
+
+    <footer>
+      Workout Tracker © 2026 · Створено власноруч
+    </footer>
+
+  </div>
+</body>
+</html>
