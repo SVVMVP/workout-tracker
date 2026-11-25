@@ -247,46 +247,81 @@
   </div>
   
 
+
 <script>
   const button = document.querySelector("button");
   const grid = document.querySelector(".grid");
 
-  // Завантажуємо раніше збережені тренування
+  // Завантаження збережених тренувань
   let workouts = [];
 
   try {
-    workouts = JSON.parse(
+    const saved = JSON.parse(
       localStorage.getItem("workouts")
-    ) || [];
+    );
 
-    if (!Array.isArray(workouts)) {
-      workouts = [];
-    }
+    workouts = Array.isArray(saved) ? saved : [];
   } catch (error) {
-    workouts = [];
+    console.error("Помилка читання:", error);
   }
 
-  // Функція створення картки
-  function createWorkoutCard(exercise, result) {
+  // Створення картки тренування
+  function createWorkoutCard(workout, index) {
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card saved-workout";
 
     const title = document.createElement("h3");
-    title.textContent = exercise;
+    title.textContent = workout.exercise;
 
     const info = document.createElement("p");
-    info.textContent = "Результат: " + result;
+    info.textContent = "Результат: " + workout.result;
 
-    card.append(title, info);
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Видалити";
+    deleteButton.className = "delete-button";
+
+    deleteButton.addEventListener("click", function() {
+      const confirmed = confirm(
+        "Точно видалити це тренування?"
+      );
+
+      if (!confirmed) return;
+
+      workouts.splice(index, 1);
+      saveWorkouts();
+      renderWorkouts();
+    });
+
+    card.append(title, info, deleteButton);
     grid.append(card);
   }
 
-  // Показуємо раніше збережені тренування
-  workouts.forEach(function(workout) {
-    createWorkoutCard(workout.exercise, workout.result);
-  });
+  // Збереження тренувань у браузері
+  function saveWorkouts() {
+    try {
+      localStorage.setItem(
+        "workouts",
+        JSON.stringify(workouts)
+      );
+      return true;
+    } catch (error) {
+      alert("Не вдалося зберегти тренування.");
+      return false;
+    }
+  }
 
-  // Натискання кнопки
+  // Оновлення списку тренувань
+  function renderWorkouts() {
+    grid.querySelectorAll(".saved-workout").forEach(
+      card => card.remove()
+    );
+
+    workouts.forEach(function(workout, index) {
+      createWorkoutCard(workout, index);
+    });
+  }
+
+  // Додавання нового тренування
   button.addEventListener("click", function() {
     const exercise = prompt("Назва вправи:");
 
@@ -296,31 +331,19 @@
 
     if (!result || !result.trim()) return;
 
-    const workout = {
+    workouts.push({
       exercise: exercise.trim(),
       result: result.trim()
-    };
+    });
 
-    // Додаємо тренування до списку
-    workouts.push(workout);
-
-    // Зберігаємо список у браузері
-    try {
-      localStorage.setItem(
-        "workouts",
-        JSON.stringify(workouts)
-      );
-    } catch (error) {
-      alert("Не вдалося зберегти тренування.");
-    }
-
-    // Створюємо картку на сторінці
-    createWorkoutCard(
-      workout.exercise,
-      workout.result
-    );
+    saveWorkouts();
+    renderWorkouts();
   });
+
+  // Показуємо збережені тренування
+  renderWorkouts();
 </script>
+
 
 </script>
 
