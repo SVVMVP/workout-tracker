@@ -246,19 +246,28 @@
 
   </div>
   
+
 <script>
   const button = document.querySelector("button");
   const grid = document.querySelector(".grid");
 
-  button.addEventListener("click", function() {
-    const exercise = prompt("Назва вправи:");
+  // Завантажуємо раніше збережені тренування
+  let workouts = [];
 
-    if (!exercise || !exercise.trim()) return;
+  try {
+    workouts = JSON.parse(
+      localStorage.getItem("workouts")
+    ) || [];
 
-    const result = prompt("Введи свій результат:");
+    if (!Array.isArray(workouts)) {
+      workouts = [];
+    }
+  } catch (error) {
+    workouts = [];
+  }
 
-    if (!result || !result.trim()) return;
-
+  // Функція створення картки
+  function createWorkoutCard(exercise, result) {
     const card = document.createElement("div");
     card.className = "card";
 
@@ -270,7 +279,49 @@
 
     card.append(title, info);
     grid.append(card);
+  }
+
+  // Показуємо раніше збережені тренування
+  workouts.forEach(function(workout) {
+    createWorkoutCard(workout.exercise, workout.result);
   });
+
+  // Натискання кнопки
+  button.addEventListener("click", function() {
+    const exercise = prompt("Назва вправи:");
+
+    if (!exercise || !exercise.trim()) return;
+
+    const result = prompt("Введи свій результат:");
+
+    if (!result || !result.trim()) return;
+
+    const workout = {
+      exercise: exercise.trim(),
+      result: result.trim()
+    };
+
+    // Додаємо тренування до списку
+    workouts.push(workout);
+
+    // Зберігаємо список у браузері
+    try {
+      localStorage.setItem(
+        "workouts",
+        JSON.stringify(workouts)
+      );
+    } catch (error) {
+      alert("Не вдалося зберегти тренування.");
+    }
+
+    // Створюємо картку на сторінці
+    createWorkoutCard(
+      workout.exercise,
+      workout.result
+    );
+  });
+</script>
+
 </script>
 
 </body>
